@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANCUHOMES - Hệ thống CHDV giá tốt tại TP.HCM & Lân Cận</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Tông màu vàng Gold sang trọng dựa trên logo của ANCUHOMES
+                        brand: {
+                            50: '#fdfbeb',
+                            100: '#fcf3c5',
+                            200: '#f8e389',
+                            500: '#dfb743', // Vàng gold chủ đạo từ logo
+                            600: '#c89e32',
+                            700: '#a37b25',
+                            800: '#815f20',
+                            900: '#64481b',
+                            950: '#3a270d',
+                        },
+                        // Tông màu tối sâu cao cấp
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#070a13', // Nền tối sâu thẳm
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hiệu ứng mờ kính cho giao diện tối */
+        .glass-header {
+            background: rgba(7, 10, 19, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .smooth-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .scrollbar-hidden::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hidden {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom scrollbar for dark style */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dfb743;
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-slate-100 font-sans min-h-screen selection:bg-brand-500 selection:text-dark-950">
+
+    <!-- Global Toast Alert Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3"></div>
+
+    <!-- HEADER (Glassmorphism Dark) -->
+    <header class="glass-header sticky top-0 z-40 border-b border-slate-800 shadow-lg smooth-transition">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo & Slogan -->
+                <div class="flex items-center gap-3">
+                    <div id="brand-logo-container" class="flex items-center justify-center bg-slate-900 p-1.5 rounded-2xl border border-slate-850 shadow-2xl">
+                        <img id="logo-img" src="https://placehold.co/100x100/1e293b/dfb743?text=AH" alt="Logo ANCUHOMES" class="h-12 w-12 object-contain rounded-xl shadow-md border border-brand-500/20">
+                    </div>
+                    <div>
+                        <h1 id="brand-name-display" class="text-xl sm:text-2xl font-extrabold text-brand-500 tracking-tight">ANCUHOMES</h1>
+                        <p id="brand-slogan-display" class="text-xs sm:text-sm font-semibold text-slate-300 italic">Hệ thống CHDV giá tốt</p>
+                    </div>
+                </div>
+
+                <!-- Action & Navigation Menu -->
+                <div class="flex items-center gap-4">
+                    <!-- Quick Connection Links -->
+                    <div class="hidden md:flex items-center gap-3">
+                        <a id="header-fb-link" href="#" target="_blank" class="flex items-center gap-2 bg-slate-900 text-blue-400 px-3.5 py-1.5 rounded-full text-sm font-semibold border border-slate-800 hover:border-blue-500/35 transition-colors">
+                            <i class="fab fa-facebook text-lg"></i> Facebook
+                        </a>
+                        <a id="header-zalo-link" href="#" target="_blank" class="flex items-center gap-2 bg-slate-900 text-cyan-400 px-3.5 py-1.5 rounded-full text-sm font-semibold border border-slate-800 hover:border-cyan-500/35 transition-colors">
+                            <i class="fas fa-comment-dots text-lg"></i> Zalo Hỗ Trợ
+                        </a>
+                    </div>
+
+                    <!-- Hotline badge -->
+                    <div class="hidden sm:flex items-center gap-2 bg-amber-500/10 border border-brand-500/20 px-3.5 py-1.5 rounded-full">
+                        <i class="fas fa-phone text-brand-500 animate-pulse text-xs"></i>
+                        <span class="text-xs font-bold text-brand-500" id="header-hotline-display">Hotline: 0989466654</span>
+                    </div>
+
+                    <!-- Admin Area Button -->
+                    <button onclick="requestAdminAccess()" class="flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-slate-950 px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-brand-500/20 transition-all transform hover:-translate-y-0.5">
+                        <i class="fas fa-user-shield"></i>
+                        <span id="admin-btn-text">Quản Trị</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-dark-950 via-slate-900 to-dark-950 text-white overflow-hidden py-16 sm:py-24 border-b border-slate-900">
+        <!-- Background decorative vectors -->
+        <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-500 rounded-full blur-3xl opacity-10"></div>
+        <div class="absolute -bottom-45 -left-40 w-96 h-96 bg-yellow-600 rounded-full blur-3xl opacity-10"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-flex items-center gap-1.5 bg-slate-900/95 border border-slate-800 text-brand-500 text-xs font-semibold px-4 py-2 rounded-full mb-6">
+                <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span> An cư lạc nghiệp - Thương hiệu tin cậy hàng đầu
+            </span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
+                Tìm Căn Hộ Dịch Vụ Ưng Ý <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-yellow-200">Giá Tốt Nhất Sài Gòn & Lân Cận</span>
+            </h2>
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 mb-10 font-normal leading-relaxed">
+                Hệ thống phòng dịch vụ tiện nghi, an ninh tuyệt đối, giá thành phải chăng được quản lý và vận hành trực tiếp bởi thương hiệu <strong class="text-brand-500">ANCUHOMES</strong>.
+            </p>
+
+            <!-- Quick Stats Panel -->
+            <div class="max-w-4xl mx-auto grid grid-cols-3 gap-3 sm:gap-6 bg-slate-900/60 backdrop-blur-md p-4 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl">
+                <div class="text-center">
+                    <div id="stat-total-rooms" class="text-2xl sm:text-4xl font-extrabold text-white">12+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Tổng căn hộ</div>
+                </div>
+                <div class="border-x border-slate-800 text-center">
+                    <div id="stat-available-rooms" class="text-2xl sm:text-4xl font-extrabold text-brand-500">5+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Phòng đang trống</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl sm:text-4xl font-extrabold text-yellow-400">100%</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">An ninh & Tiện nghi</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT: SEARCH & FILTER & ROOMS -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- FILTER CONTAINER -->
+        <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-850 mb-12 transform -translate-y-8 relative z-10">
+            <h3 class="text-lg font-bold text-slate-100 mb-6 flex items-center gap-2">
+                <i class="fas fa-sliders-h text-brand-500"></i> Bộ lọc tìm phòng thông minh
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+                <!-- District Filter (Dropdown) -->
+                <div class="lg:col-span-5">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Khu Vực Quận/Huyện</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 pointer-events-none">
+                            <i class="fas fa-map-marker-alt text-brand-500"></i>
+                        </span>
+                        <select id="filter-district" onchange="applyFilters()" class="block w-full pl-10 pr-10 py-3.5 bg-dark-950 border border-slate-800 rounded-2xl text-slate-200 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent smooth-transition appearance-none">
+                            <option value="Tất cả">Tất cả các Khu vực (Hồ Chí Minh & Bình Dương)</option>
+                            <option value="Quận 1">Quận 1</option>
+                            <option value="Quận 3">Quận 3</option>
+                            <option value="Quận 10">Quận 10</option>
+                            <option value="Quận 12">Quận 12</option>
+                            <option value="Bình Thạnh">Bình Thạnh</option>
+                            <option value="Phú Nhuận">Phú Nhuận</option>
+                            <option value="Tân Bình">Tân Bình</option>
+                            <option value="Tân Phú">Tân Phú</option>
+                            <option value="Gò Vấp">Gò Vấp</option>
+                            <option value="Thủ Đức">Thủ Đức</option>
+                            <option value="Quận 7">Quận 7</option>
+                            <option value="Dĩ An">Dĩ An</option>
+                        </select>
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 pointer-events-none">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Price range filter buttons -->
+                <div class="lg:col-span-7">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Mức Giá Thuê (Tháng)</label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="setPriceFilter('all', this)" class="price-btn active bg-brand-500 text-slate-950 px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-sm hover:shadow smooth-transition border border-transparent">
+                            Tất cả giá
+                        </button>
+                        <button onclick="setPriceFilter('under-2', this)" class="price-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold smooth-transition border border-transparent">
+                            Dưới 2Tr
+                        </button>
+                        <button onclick="setPriceFilter('2-3', this)" class="price-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold smooth-transition border border-transparent">
+                            2Tr - 3Tr
+                        </button>
+                        <button onclick="setPriceFilter('3-4', this)" class="price-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold smooth-transition border border-transparent">
+                            3Tr - 4Tr
+                        </button>
+                        <button onclick="setPriceFilter('4-5', this)" class="price-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold smooth-transition border border-transparent">
+                            4Tr - 5Tr
+                        </button>
+                        <button onclick="setPriceFilter('above-5', this)" class="price-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold smooth-transition border border-transparent">
+                            Trên 5Tr
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clear & Active filters indicators -->
+            <div id="filter-indicators" class="hidden flex items-center justify-between mt-6 pt-4 border-t border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-slate-400">Bộ lọc đang áp dụng:</span>
+                    <span id="active-filters-badges" class="flex flex-wrap gap-2"></span>
+                </div>
+                <button onclick="resetAllFilters()" class="text-xs text-red-400 hover:text-red-300 font-bold flex items-center gap-1">
+                    <i class="fas fa-trash-alt"></i> Xóa tất cả bộ lọc
+                </button>
+            </div>
+        </div>
+
+        <!-- APARTMENT ROOMS SECTION -->
+        <section class="mb-20">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-white tracking-tight">Danh Sách Căn Hộ Trống</h3>
+                    <p class="text-sm text-slate-400 mt-1">Cập nhật liên tục phòng trống mới nhất trên hệ thống</p>
+                </div>
+                <span id="result-count" class="bg-brand-950 text-brand-500 border border-brand-900 text-xs font-bold px-3.5 py-1.5 rounded-full">
+                    Đang tìm thấy 0 phòng
+                </span>
+            </div>
+
+            <!-- Rooms Grid -->
+            <div id="rooms-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically loaded apartment cards go here -->
+            </div>
+
+            <!-- Empty rooms alert -->
+            <div id="empty-state" class="hidden text-center py-16 bg-slate-900 rounded-3xl border border-slate-800 shadow-xl">
+                <div class="text-5xl text-slate-600 mb-4"><i class="fas fa-folder-open"></i></div>
+                <h4 class="text-xl font-bold text-slate-300">Không tìm thấy phòng phù hợp</h4>
+                <p class="text-slate-400 mt-2 max-w-md mx-auto">Hãy thử thay đổi tiêu chí khu vực Quận hoặc tầm ngân sách để tìm kiếm được nhiều kết quả tốt hơn nhé!</p>
+                <button onclick="resetAllFilters()" class="mt-6 bg-brand-500 hover:bg-brand-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-md">
+                    Xem tất cả phòng
+                </button>
+            </div>
+        </section>
+
+        <!-- ADVERTISING / REAL-LIFE SHOWCASE SECTION -->
+        <section class="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 text-white relative overflow-hidden mb-20 shadow-2xl border border-slate-800">
+            <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 text-left">
+                    <span class="bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-4 inline-block">ANCUHOMES REAL LIFE</span>
+                    <h3 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4">Hoạt Động Thực Tế & Chất Lượng Phục Vụ</h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                        Chúng tôi cam kết chất lượng căn hộ không chỉ nằm ở vẻ đẹp ban đầu mà còn ở quy trình quản lý, vận hành chu đáo và hoàn hảo mỗi ngày. Khách hàng luôn an tâm tuyệt đối khi lựa chọn ANCUHOMES.
+                    </p>
+                    <div class="space-y-3.5">
+                        <div class="flex items-center gap-3">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-500/15 text-brand-500 flex items-center justify-center text-sm"><i class="fas fa-check"></i></span>
+                            <span class="text-slate-200 text-sm font-semibold">Vệ sinh định kỳ không gian chung định kỳ sạch bóng</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-500/15 text-brand-500 flex items-center justify-center text-sm"><i class="fas fa-check"></i></span>
+                            <span class="text-slate-200 text-sm font-semibold">Hệ thống Camera & Bảo vệ khóa vân tay bảo mật tối đa</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-500/15 text-brand-500 flex items-center justify-center text-sm"><i class="fas fa-check"></i></span>
+                            <span class="text-slate-200 text-sm font-semibold">Khắc phục siêu tốc sự cố kỹ thuật trong phòng trong vòng 24h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Showcase Grid of Real Images -->
+                <div class="lg:col-span-7 grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-800 relative group">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=500&q=80" alt="Hoạt động vệ sinh" class="w-full h-48 object-cover transform group-hover:scale-105 smooth-transition">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-dark-950/90 p-3"><p class="text-xs font-bold text-brand-500">Giữ không gian luôn sạch bóng</p></div>
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-800 relative group">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Phòng làm việc chung" class="w-full h-32 object-cover transform group-hover:scale-105 smooth-transition">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-dark-950/90 p-3"><p class="text-xs font-bold text-brand-500">Khu vực tiếp khách chuyên nghiệp</p></div>
+                        </div>
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-800 relative group">
+                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="An ninh ra vào bảo mật" class="w-full h-32 object-cover transform group-hover:scale-105 smooth-transition">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-dark-950/90 p-3"><p class="text-xs font-bold text-brand-500">Hệ thống vân tay, an ninh thông minh</p></div>
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-800 relative group">
+                            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80" alt="Đội ngũ vận hành nhiệt huyết" class="w-full h-48 object-cover transform group-hover:scale-105 smooth-transition">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-dark-950/90 p-3"><p class="text-xs font-bold text-brand-500">Hỗ trợ chăm sóc khách tận tâm</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIN CODE AUTHENTICATION MODAL -->
+    <div id="pin-auth-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/90 backdrop-blur-md">
+        <div class="bg-slate-900 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative border border-slate-800 animate-fade-in">
+            <button onclick="closePinAuthModal()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center smooth-transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="w-16 h-16 bg-brand-500/10 text-brand-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border border-brand-500/20">
+                <i class="fas fa-key"></i>
+            </div>
+            <h4 class="text-lg font-extrabold text-white mb-2">Xác Thực Quản Trị Viên</h4>
+            <p class="text-xs text-slate-400 mb-5 leading-relaxed">Website được thiết lập chế độ chỉ xem công khai. Vui lòng nhập mã PIN bảo mật Admin để mở khóa quyền chỉnh sửa, thêm phòng, đổi logo.</p>
+            
+            <div class="space-y-4 text-left mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 text-center">Mã PIN Admin (Mặc định: *********)</label>
+                    <input type="password" id="admin-pin-input" class="w-full bg-dark-950 border border-slate-800 text-slate-200 text-center text-xl font-bold py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 tracking-widest" placeholder="••••" onkeydown="if(event.key === 'Enter') verifyAdminPin()">
+                </div>
+            </div>
+            
+            <button onclick="verifyAdminPin()" class="w-full bg-brand-500 hover:bg-brand-600 text-slate-950 py-3.5 rounded-2xl font-bold text-sm transition-colors shadow-lg">Xác nhận mở khóa</button>
+        </div>
+    </div>
+
+    <!-- APARTMENT DETAILS MODAL (Premium Dark Style) -->
+    <div id="room-detail-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="bg-slate-900 text-slate-100 rounded-[2rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-800 smooth-transition relative">
+            
+            <!-- Sticky Detail Modal Header -->
+            <div class="sticky top-0 bg-slate-900/95 backdrop-blur z-20 px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
+                <div>
+                    <span id="modal-room-status" class="bg-brand-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-1.5 inline-block">Còn trống</span>
+                    <h4 id="modal-room-code" class="text-2xl font-extrabold text-white leading-none">MÃ PHÒNG</h4>
+                </div>
+                <button onclick="closeRoomDetailModal()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center smooth-transition">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-8">
+                <!-- Gallery Carousel Grid inside Modal -->
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3"><i class="far fa-images text-brand-500"></i> Album Ảnh thực tế (tối đa 10 ảnh)</h5>
+                    <div class="relative group">
+                        <img id="modal-main-img" src="" alt="Căn hộ ANCUHOMES" class="w-full h-72 sm:h-96 object-cover rounded-3xl shadow-md border border-slate-850 animate-fade-in">
+                        <!-- Navigation sliders buttons -->
+                        <button onclick="prevModalImage()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="nextModalImage()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <!-- Thumbnails list -->
+                    <div id="modal-thumbnails" class="flex gap-2.5 overflow-x-auto mt-4 pb-2 scrollbar-hidden">
+                        <!-- Thumbnails loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Info summary -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Column Left: Specifications -->
+                    <div class="space-y-5">
+                        <div class="bg-dark-950 rounded-2xl p-5 border border-slate-800">
+                            <h6 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Thông Tin Cơ Bản</h6>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-2.5">
+                                    <span class="text-brand-500 mt-0.5"><i class="fas fa-map-marker-alt text-lg"></i></span>
+                                    <div>
+                                        <p class="text-xs text-slate-500">Địa chỉ cụ thể (Bấm để xem Google Maps chỉ đường)</p>
+                                        <!-- Interactive Address Redirect Link -->
+                                        <a id="modal-room-address" href="#" target="_blank" class="text-sm font-bold text-brand-500 hover:text-brand-600 hover:underline block mt-0.5 smooth-transition">Địa chỉ</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2.5">
+                                    <span class="text-yellow-500"><i class="fas fa-tags"></i></span>
+                                    <div>
+                                        <p class="text-xs text-slate-500">Giá thuê ưu đãi</p>
+                                        <p id="modal-room-price" class="text-lg font-extrabold text-brand-500">Giá phòng</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services list -->
+                        <div>
+                            <h6 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Dịch vụ (Chi phí phát sinh)</h6>
+                            <div id="modal-room-services" class="space-y-2">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column Right: Utilities checklist -->
+                    <div class="space-y-5">
+                        <div>
+                            <h6 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Tiện ích phòng có sẵn</h6>
+                            <div id="modal-room-utilities" class="grid grid-cols-2 gap-3">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Google Maps Position / Embed -->
+                        <div>
+                            <h6 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Vị trí bản đồ</h6>
+                            <div id="modal-map-container" class="rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-dark-950 h-44 flex items-center justify-center">
+                                <!-- Dynamically loaded iframe / directions link -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Reservation / Deposit and Chat Call-to-actions -->
+                <div class="bg-dark-950 rounded-3xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="text-center sm:text-left">
+                        <h5 class="font-bold text-brand-500 text-lg">Giữ Chỗ Nhanh Chóng Trực Tuyến</h5>
+                        <p class="text-xs text-slate-400 mt-1">Chuyển cọc giữ chỗ an tâm tuyệt đối, lập biên nhận điện tử xác nhận tức thì.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 w-full sm:w-auto justify-center">
+                        <button onclick="openDepositQRModal()" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-slate-950 px-6 py-3.5 rounded-2xl font-bold text-sm shadow-md transition-colors">
+                            <i class="fas fa-qrcode"></i> Quét QR đặt cọc
+                        </button>
+                        <a id="modal-chat-zalo-btn" href="#" target="_blank" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-md transition-colors">
+                            <i class="fab fa-whatsapp text-cyan-400"></i> Chat Zalo trực tiếp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEPOSIT QR POPUP MODAL (Dark themed) -->
+    <div id="deposit-qr-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/90 backdrop-blur-md">
+        <div class="bg-slate-900 rounded-[2rem] max-w-md w-full p-6 text-center shadow-2xl relative border border-slate-800">
+            <button onclick="closeDepositQRModal()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center smooth-transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="w-16 h-16 bg-brand-500/10 text-brand-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border border-brand-500/20">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <h4 class="text-lg font-extrabold text-white mb-1">Thanh Toán Đặt Cọc Giữ Chỗ</h4>
+            <p id="deposit-room-desc" class="text-xs text-brand-500 font-bold mb-4">Mã Phòng: </p>
+            <div class="bg-dark-950 p-4 rounded-3xl inline-block border border-slate-800 mb-4 shadow-inner">
+                <img id="deposit-qr-img" src="" alt="Mã QR Đặt Cọc" class="w-56 h-56 object-contain rounded-2xl shadow mx-auto">
+            </div>
+            <div class="space-y-2 text-left bg-dark-950 p-4 rounded-2xl border border-slate-800 text-xs text-slate-400 mb-5">
+                <p><strong>Bước 1:</strong> Chụp màn hình hoặc quét trực tiếp mã QR trên.</p>
+                <p><strong>Bước 2:</strong> Nhập số tiền đặt cọc giữ chỗ quy định (1Tr - 2Tr).</p>
+                <p><strong>Bước 3:</strong> Ghi đúng nội dung chuyển khoản: <code id="deposit-transfer-syntax" class="bg-brand-500 text-slate-950 font-extrabold px-1.5 py-0.5 rounded">DATCOC [MAPHONG] [SODIENTHOAI]</code>.</p>
+                <p><strong>Bước 4:</strong> Liên hệ ngay hotline/Zalo để chúng tôi xác nhận lập biên nhận cho bạn.</p>
+            </div>
+            <button onclick="closeDepositQRModal()" class="w-full bg-brand-500 hover:bg-brand-600 text-slate-950 py-3 rounded-xl font-bold text-sm transition-colors">Tôi đã chuyển cọc thành công</button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL DASHBOARD MODAL (Premium Dark Style) -->
+    <div id="admin-panel" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="bg-slate-900 text-slate-100 rounded-[2rem] max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-800 smooth-transition">
+            
+            <!-- Sticky Admin Header -->
+            <div class="sticky top-0 bg-dark-950 text-white z-20 px-6 sm:px-8 py-5 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-brand-500 text-slate-950 flex items-center justify-center text-lg"><i class="fas fa-lock"></i></span>
+                    <div>
+                        <h4 class="text-xl font-extrabold tracking-tight">Cấu Hình & Quản Trị Hệ Thống</h4>
+                        <p class="text-xs text-slate-400">Tải lên logo, ảnh căn hộ từ máy tính, điều chỉnh liên kết & phòng trống</p>
+                    </div>
+                </div>
+                <button onclick="toggleAdminPanel()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center smooth-transition">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Admin Sub-Navigation Tabs -->
+            <div class="bg-slate-950 border-b border-slate-800 px-6 sm:px-8 flex gap-4 overflow-x-auto scrollbar-hidden">
+                <button onclick="switchAdminTab('brand')" id="tab-brand" class="admin-tab-btn border-b-2 border-brand-500 text-brand-500 px-3 py-4 text-xs sm:text-sm font-bold flex items-center gap-2 smooth-transition">
+                    <i class="fas fa-id-card"></i> 1. Cấu hình Thương hiệu
+                </button>
+                <button onclick="switchAdminTab('qr')" id="tab-qr" class="admin-tab-btn border-b-2 border-transparent text-slate-400 px-3 py-4 text-xs sm:text-sm font-bold flex items-center gap-2 smooth-transition hover:text-white">
+                    <i class="fas fa-qrcode"></i> 2. Quản lý Mã QR & Social
+                </button>
+                <button onclick="switchAdminTab('rooms')" id="tab-rooms" class="admin-tab-btn border-b-2 border-transparent text-slate-400 px-3 py-4 text-xs sm:text-sm font-bold flex items-center gap-2 smooth-transition hover:text-white">
+                    <i class="fas fa-home"></i> 3. Quản lý Phòng trống
+                </button>
+            </div>
+
+            <!-- TAB CONTENT -->
+            <div class="p-6 sm:p-8">
+                <!-- Tab 1: BRAND CONFIG -->
+                <div id="admin-tab-content-brand" class="admin-tab-panel space-y-6">
+                    <h5 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2"><i class="fas fa-cog text-brand-500"></i> Nhận diện thương hiệu</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Tên Thương hiệu</label>
+                            <input type="text" id="admin-brand-name" class="w-full bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-slate-200">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Slogan của hệ thống</label>
+                            <input type="text" id="admin-brand-slogan" class="w-full bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-slate-200">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Số điện thoại Hotline</label>
+                            <input type="text" id="admin-brand-hotline" class="w-full bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-slate-200" placeholder="Ví dụ: 0989466654">
+                        </div>
+                        
+                        <!-- NEW PIN CODE CHANGE INPUT -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Thay đổi mã PIN Admin</label>
+                            <input type="password" id="admin-brand-pin" class="w-full bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-bold tracking-widest text-brand-500" placeholder="Mã PIN số bảo mật mới">
+                        </div>
+                        
+                        <!-- PREMIUM LOGO FILE UPLOADER FROM LOCAL COMPUTER -->
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Tải ảnh Logo từ máy tính của bạn</label>
+                            <div class="flex items-center gap-3">
+                                <label class="flex-1 flex flex-col items-center justify-center bg-dark-950 border-2 border-dashed border-slate-800 hover:border-brand-500/55 rounded-xl cursor-pointer py-2.5 px-4 smooth-transition text-xs text-slate-400 hover:text-slate-200">
+                                    <span class="flex items-center gap-2"><i class="fas fa-cloud-upload-alt text-lg text-brand-500"></i> Chọn ảnh logo...</span>
+                                    <input type="file" id="admin-logo-file" accept="image/*" class="hidden" onchange="handleLocalLogoUpload(event)">
+                                </label>
+                                <div class="w-12 h-12 rounded-xl bg-dark-950 border border-slate-800 overflow-hidden flex items-center justify-center flex-shrink-0">
+                                    <img id="logo-preview-box" src="" class="w-full h-full object-contain" alt="Logo preview">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Hoặc Đường dẫn ảnh Logo (Định dạng URL trực tuyến)</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="admin-logo-url" class="flex-1 bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-slate-200" placeholder="https://...">
+                                <button onclick="resetDefaultLogo()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 rounded-xl text-xs font-bold">Đặt lại</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: QR & SOCIAL CONFIG -->
+                <div id="admin-tab-content-qr" class="admin-tab-panel hidden space-y-6">
+                    <h5 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2"><i class="fas fa-qrcode text-brand-500"></i> Liên kết QR & Kết nối nhanh</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Left Column: Links -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Đường dẫn Chat Zalo hỗ trợ khách hàng</label>
+                                <input type="text" id="admin-zalo-url" class="w-full bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-slate-200" placeholder="https://zalo.me/...">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Đường dẫn Fanpage Facebook</label>
+                                <input type="text" id="admin-fb-url" class="w-full bg-dark-950 px-4 py-3 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-slate-200" placeholder="https://facebook.com/...">
+                            </div>
+                        </div>
+
+                        <!-- Right Column: QR Codes -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Local upload QR Zalo -->
+                            <div class="border border-slate-800 bg-dark-950 p-4 rounded-2xl text-center">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">QR Zalo của bạn</label>
+                                <div class="w-24 h-24 bg-slate-900 rounded-xl mx-auto mb-2 flex items-center justify-center overflow-hidden border border-slate-800">
+                                    <img id="admin-preview-qr-zalo" src="" class="w-full h-full object-contain" alt="QR Zalo">
+                                </div>
+                                <label class="block bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-1.5 px-2 rounded-lg cursor-pointer text-[10px] mb-2">
+                                    Tải ảnh QR Zalo
+                                    <input type="file" accept="image/*" class="hidden" onchange="handleQRUpload(event, 'qrZaloUrl', 'admin-preview-qr-zalo')">
+                                </label>
+                                <input type="text" id="admin-qr-zalo-url" oninput="document.getElementById('admin-preview-qr-zalo').src = this.value" class="w-full bg-slate-900 px-2 py-1.5 border border-slate-800 rounded-lg text-[10px] text-slate-300" placeholder="Hoặc dán URL mã QR">
+                            </div>
+
+                            <!-- Local upload QR Deposit -->
+                            <div class="border border-slate-800 bg-dark-950 p-4 rounded-2xl text-center">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">QR Cọc tài khoản</label>
+                                <div class="w-24 h-24 bg-slate-900 rounded-xl mx-auto mb-2 flex items-center justify-center overflow-hidden border border-slate-800">
+                                    <img id="admin-preview-qr-deposit" src="" class="w-full h-full object-contain" alt="QR Deposit">
+                                </div>
+                                <label class="block bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-1.5 px-2 rounded-lg cursor-pointer text-[10px] mb-2">
+                                    Tải ảnh QR Cọc
+                                    <input type="file" accept="image/*" class="hidden" onchange="handleQRUpload(event, 'qrDepositUrl', 'admin-preview-qr-deposit')">
+                                </label>
+                                <input type="text" id="admin-qr-deposit-url" oninput="document.getElementById('admin-preview-qr-deposit').src = this.value" class="w-full bg-slate-900 px-2 py-1.5 border border-slate-800 rounded-lg text-[10px] text-slate-300" placeholder="Hoặc dán URL mã QR">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: ROOMS CRUD -->
+                <div id="admin-tab-content-rooms" class="admin-tab-panel hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h5 class="text-lg font-bold text-white flex items-center gap-2"><i class="fas fa-home text-brand-500"></i> Danh sách phòng vận hành</h5>
+                        <button onclick="openRoomForm()" class="bg-brand-500 hover:bg-brand-600 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow smooth-transition">
+                            <i class="fas fa-plus"></i> Thêm Căn Hộ Mới
+                        </button>
+                    </div>
+
+                    <!-- ROOM FORM (ADD/EDIT) -->
+                    <div id="room-form-container" class="hidden bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-6 relative">
+                        <h6 id="form-title" class="text-sm font-extrabold text-white uppercase tracking-widest flex items-center gap-1.5">
+                            <i class="fas fa-edit text-brand-500"></i> Thêm mới phòng
+                        </h6>
+                        <input type="hidden" id="form-room-id">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                            <div class="md:col-span-3">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Mã Phòng</label>
+                                <input type="text" id="form-room-code" class="w-full bg-slate-900 text-slate-200 border border-slate-800 px-3 py-2.5 rounded-xl text-sm focus:ring-brand-500" placeholder="Ví dụ: AH-101">
+                            </div>
+                            <div class="md:col-span-5">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Địa chỉ</label>
+                                <input type="text" id="form-room-address" class="w-full bg-slate-900 text-slate-200 border border-slate-800 px-3 py-2.5 rounded-xl text-sm focus:ring-brand-500" placeholder="Số nhà, tên đường, phường">
+                            </div>
+                            <div class="md:col-span-4">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Khu vực / Quận / TP</label>
+                                <select id="form-room-district" class="w-full bg-slate-900 text-slate-200 border border-slate-800 px-3 py-2.5 rounded-xl text-sm focus:ring-brand-500 font-semibold text-slate-300">
+                                    <option value="Quận 1">Quận 1</option>
+                                    <option value="Quận 3">Quận 3</option>
+                                    <option value="Quận 10">Quận 10</option>
+                                    <option value="Quận 12">Quận 12</option>
+                                    <option value="Bình Thạnh">Bình Thạnh</option>
+                                    <option value="Phú Nhuận">Phú Nhuận</option>
+                                    <option value="Tân Bình">Tân Bình</option>
+                                    <option value="Tân Phú">Tân Phú</option>
+                                    <option value="Gò Vấp">Gò Vấp</option>
+                                    <option value="Thủ Đức">Thủ Đức</option>
+                                    <option value="Quận 7">Quận 7</option>
+                                    <option value="Dĩ An">Dĩ An</option>
+                                </select>
+                            </div>
+
+                            <div class="md:col-span-4">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Giá phòng (VND / Tháng)</label>
+                                <input type="number" id="form-room-price" class="w-full bg-slate-900 text-slate-200 border border-slate-800 px-3 py-2.5 rounded-xl text-sm focus:ring-brand-500" placeholder="Ví dụ: 3500000">
+                            </div>
+                            <div class="md:col-span-5">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Link Google Map Embed / Chỉ đường</label>
+                                <input type="text" id="form-room-map" class="w-full bg-slate-900 text-slate-200 border border-slate-800 px-3 py-2.5 rounded-xl text-sm focus:ring-brand-500" placeholder="Dán link Map chỉ đường">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Trạng thái phòng</label>
+                                <select id="form-room-status" class="w-full bg-slate-900 border border-slate-800 px-3 py-2.5 rounded-xl text-sm focus:ring-brand-500 font-bold text-brand-500">
+                                    <option value="Còn trống">Còn trống</option>
+                                    <option value="Đã thuê">Đã thuê</option>
+                                </select>
+                            </div>
+
+                            <!-- List of up to 10 Images -->
+                            <div class="md:col-span-12">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="block text-xs font-bold text-slate-400 uppercase">Hình ảnh căn hộ (Tải lên từ máy tính hoặc dán URL - tối đa 10 ảnh)</label>
+                                    <button onclick="autoPopulateDemoImages()" type="button" class="text-xs text-brand-500 hover:text-brand-400 font-extrabold"><i class="fas fa-magic text-brand-500"></i> Tự động điền 10 ảnh mẫu đẹp</button>
+                                </div>
+                                <div id="image-inputs-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                                    <!-- Generates 10 input fields and file triggers dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Services (Water, Electricity, Internet etc.) -->
+                            <div class="md:col-span-6">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Thông tin dịch vụ (Điện, nước, internet...)</label>
+                                <div class="space-y-2 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+                                    <input type="text" id="service-electricity" class="w-full bg-dark-950 text-slate-200 border border-slate-800 px-3 py-1.5 rounded-lg text-xs" placeholder="Điện: 3.500đ / KWh">
+                                    <input type="text" id="service-water" class="w-full bg-dark-950 text-slate-200 border border-slate-800 px-3 py-1.5 rounded-lg text-xs" placeholder="Nước: 100.000đ / người">
+                                    <input type="text" id="service-wifi" class="w-full bg-dark-950 text-slate-200 border border-slate-800 px-3 py-1.5 rounded-lg text-xs" placeholder="Internet: Miễn phí">
+                                    <input type="text" id="service-others" class="w-full bg-dark-950 text-slate-200 border border-slate-800 px-3 py-1.5 rounded-lg text-xs" placeholder="Dịch vụ khác: Rác 50.000đ/phòng">
+                                </div>
+                            </div>
+
+                            <!-- Utilities (Elevator, Fridge, AC etc) -->
+                            <div class="md:col-span-6">
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Tiện ích phòng có sẵn (Chọn nhiều)</label>
+                                <div id="utilities-checklist" class="grid grid-cols-2 gap-2 bg-slate-900 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300">
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Máy lạnh" checked class="accent-brand-500"> Máy lạnh</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Tủ lạnh" checked class="accent-brand-500"> Tủ lạnh</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Giường nệm" checked class="accent-brand-500"> Giường nệm</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Tủ quần áo" checked class="accent-brand-500"> Tủ quần áo</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Gác lửng" class="accent-brand-500"> Gác lửng</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Khu bếp nấu" class="accent-brand-500"> Khu bếp nấu</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Ban công" class="accent-brand-500"> Ban công</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" value="Máy giặt chung" class="accent-brand-500"> Máy giặt chung</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form action buttons -->
+                        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+                            <button onclick="closeRoomForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold">Hủy bỏ</button>
+                            <button onclick="saveRoom()" class="bg-brand-500 hover:bg-brand-600 text-slate-950 px-5 py-2.5 rounded-xl text-xs font-bold shadow-md"><i class="fas fa-save"></i> Lưu căn hộ</button>
+                        </div>
+                    </div>
+
+                    <!-- ADMIN ROOMS LISTING TABLE -->
+                    <div class="overflow-x-auto rounded-2xl border border-slate-800 shadow-sm">
+                        <table class="w-full text-left border-collapse bg-slate-900">
+                            <thead>
+                                <tr class="bg-dark-950 text-xs font-bold uppercase text-slate-400 border-b border-slate-800">
+                                    <th class="p-4">Mã Phòng</th>
+                                    <th class="p-4">Địa Chỉ / Quận</th>
+                                    <th class="p-4">Giá Thuê</th>
+                                    <th class="p-4 text-center">Hình Ảnh</th>
+                                    <th class="p-4 text-center">Trạng Thái</th>
+                                    <th class="p-4 text-center">Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-rooms-table-body" class="divide-y divide-slate-800 text-sm text-slate-300">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Footer panel for Global admin settings -->
+                <div class="mt-8 pt-6 border-t border-slate-800 flex items-center justify-end gap-3">
+                    <button onclick="toggleAdminPanel()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-5 py-3 rounded-xl font-bold text-sm smooth-transition">Đóng</button>
+                    <button onclick="saveGlobalSettings()" class="bg-brand-500 hover:bg-brand-600 text-slate-950 px-6 py-3 rounded-xl font-bold text-sm shadow-md smooth-transition"><i class="fas fa-save"></i> Lưu tất cả thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI CHATBOT & CONTACT FLOAT WIDGET -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3.5">
+        <!-- Zalo & Facebook Quick Floating Buttons -->
+        <div id="float-socials" class="flex flex-col gap-2 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300">
+            <a id="float-fb-btn" href="#" target="_blank" class="w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center text-xl shadow-lg transition-transform hover:scale-110">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a id="float-zalo-btn" href="#" target="_blank" class="w-12 h-12 rounded-full bg-cyan-500 hover:bg-cyan-400 text-white flex items-center justify-center text-xl shadow-lg transition-transform hover:scale-110">
+                <i class="fas fa-comment-dots"></i>
+            </a>
+        </div>
+
+        <!-- Master Floating trigger button -->
+        <button onclick="toggleSocialBubbles()" class="w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-slate-950 flex items-center justify-center text-xl shadow-xl transition-transform hover:rotate-45">
+            <i class="fas fa-phone-alt animate-pulse"></i>
+        </button>
+
+        <!-- AI Assistant Floating Button -->
+        <button onclick="toggleAIChat()" class="relative w-14 h-14 rounded-full bg-slate-900 hover:bg-slate-800 text-brand-500 flex items-center justify-center text-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 group border-2 border-brand-500">
+            <span class="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-brand-500"></span>
+            </span>
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <!-- INTEGRATED SMART AI CHATBOT PANEL (Dark themed UI) -->
+    <div id="ai-chat-panel" class="hidden fixed bottom-24 right-6 z-50 w-full sm:max-w-md bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-800 overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[600px] smooth-transition text-slate-200">
+        <!-- Chatbot Header -->
+        <div class="bg-gradient-to-r from-dark-950 to-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-slate-800 border border-brand-500/30 flex items-center justify-center text-lg shadow-inner"><i class="fas fa-robot text-brand-500 animate-bounce"></i></div>
+                <div>
+                    <h4 class="text-sm font-extrabold tracking-tight">ANCUHOMES Trợ lý ảo AI</h4>
+                    <p class="text-[10px] text-brand-500">Phản hồi dựa trên phòng trống có sẵn</p>
+                </div>
+            </div>
+            <button onclick="toggleAIChat()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center smooth-transition"><i class="fas fa-times text-sm"></i></button>
+        </div>
+
+        <!-- Chat history and content scroll container -->
+        <div id="ai-chat-history" class="flex-1 p-5 overflow-y-auto bg-dark-950 space-y-4">
+            <!-- Welcoming bubble -->
+            <div class="flex items-start gap-2.5">
+                <div class="w-8 h-8 rounded-full bg-slate-800 border border-brand-500/20 text-brand-500 flex items-center justify-center text-xs flex-shrink-0"><i class="fas fa-robot"></i></div>
+                <div class="bg-slate-900 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm text-xs text-slate-300 max-w-[85%] leading-relaxed border border-slate-800">
+                    Xin chào! Tôi là Trợ lý AI của thương hiệu **ANCUHOMES**. 🏡 
+                    Tôi nắm rõ thông tin phòng đang trống của hệ thống. 
+                    Bạn muốn tìm kiếm căn hộ ở khu vực Quận nào hay tầm giá thuê bao nhiêu, hãy nhắn cho tôi tư vấn nhé!
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator template -->
+        <div id="ai-typing-indicator" class="hidden px-5 py-2 bg-dark-950 flex items-center gap-2">
+            <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-full px-3 py-2 text-xs text-slate-400 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-bounce" style="animation-delay: 0.1s"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-bounce" style="animation-delay: 0.2s"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-bounce" style="animation-delay: 0.3s"></span>
+                <span>ANCUHOMES AI đang soạn câu trả lời...</span>
+            </div>
+        </div>
+
+        <!-- Prompt Suggestions Quick reply chips -->
+        <div class="p-3 bg-slate-900 border-t border-slate-800 overflow-x-auto whitespace-nowrap scrollbar-hidden flex gap-2">
+            <button onclick="sendQuickPrompt('Có phòng nào Quận 12 dưới 3 triệu không?')" class="bg-dark-950 hover:bg-slate-800 border border-slate-800 text-[11px] font-bold text-slate-300 hover:text-brand-500 px-3 py-1.5 rounded-full smooth-transition">Phòng Quận 12 < 3Tr</button>
+            <button onclick="sendQuickPrompt('Tìm phòng trống ở khu vực Dĩ An')" class="bg-dark-950 hover:bg-slate-800 border border-slate-800 text-[11px] font-bold text-slate-300 hover:text-brand-500 px-3 py-1.5 rounded-full smooth-transition">Căn hộ tại Dĩ An</button>
+            <button onclick="sendQuickPrompt('Hướng dẫn tôi cách giữ chỗ đặt cọc')" class="bg-dark-950 hover:bg-slate-800 border border-slate-800 text-[11px] font-bold text-slate-300 hover:text-brand-500 px-3 py-1.5 rounded-full smooth-transition">Cách đặt cọc phòng</button>
+        </div>
+
+        <!-- Quick Social Connectors inside Chat Widget -->
+        <div class="bg-slate-950 border-t border-slate-800 px-4 py-2 flex items-center justify-around text-[10px] text-slate-400">
+            <span class="font-bold">Kết nối nhanh:</span>
+            <a id="chat-widget-fb" href="#" target="_blank" class="text-blue-400 font-extrabold flex items-center gap-1 hover:underline"><i class="fab fa-facebook"></i> Facebook</a>
+            <a id="chat-widget-zalo" href="#" target="_blank" class="text-cyan-400 font-extrabold flex items-center gap-1 hover:underline"><i class="fas fa-comment-dots"></i> Chat Zalo</a>
+        </div>
+
+        <!-- Input typing Area -->
+        <div class="p-3.5 bg-slate-900 border-t border-slate-800 flex gap-2 items-center">
+            <input type="text" id="ai-user-input" onkeydown="if(event.key === 'Enter') sendChatMessage()" class="flex-1 bg-dark-950 border border-slate-800 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 font-medium text-slate-200 placeholder-slate-500" placeholder="Hỏi tôi về phòng trống, giá điện nước, đặt cọc...">
+            <button onclick="sendChatMessage()" class="w-10 h-10 rounded-2xl bg-brand-500 hover:bg-brand-600 text-slate-950 flex items-center justify-center shadow-md smooth-transition flex-shrink-0">
+                <i class="fas fa-paper-plane text-sm"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-950 text-slate-400 py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8 pb-8 border-b border-slate-900">
+                <div>
+                    <h5 id="footer-brand-name" class="text-brand-500 font-extrabold text-lg">ANCUHOMES</h5>
+                    <p id="footer-brand-slogan" class="text-xs text-slate-300 font-semibold italic mt-1">Hệ thống CHDV giá tốt</p>
+                    <p class="text-xs text-slate-500 mt-4 max-w-sm leading-relaxed">
+                        Chuyên cung cấp các gói căn hộ dịch vụ trọn gói sang trọng, thiết kế tiện nghi, giá thành phải chăng, đồng hành cùng hành trình an cư lạc nghiệp của bạn tại Thành phố Hồ Chí Minh và lân cận.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4">Kết Nối Với Chúng Tôi</h5>
+                    <div class="flex flex-col gap-2.5 text-xs">
+                        <a id="footer-fb-link" href="#" target="_blank" class="hover:text-brand-500 transition-colors flex items-center gap-2"><i class="fab fa-facebook text-blue-500"></i> Theo dõi Fanpage</a>
+                        <a id="footer-zalo-link" href="#" target="_blank" class="hover:text-brand-500 transition-colors flex items-center gap-2"><i class="fas fa-comment-dots text-cyan-400"></i> Hỗ trợ Zalo tư vấn</a>
+                        <p class="text-brand-500 flex items-center gap-2 font-bold"><i class="fas fa-phone"></i> <span id="footer-hotline-text">0989466654</span></p>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4">Chính Sách & Cam Kết</h5>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Hỗ trợ ký hợp đồng rõ ràng minh bạch, cam kết giữ phòng hoàn tiền nếu không đúng thực tế mô tả, dịch vụ bảo trì định kỳ nhanh chóng trong vòng 24 giờ làm việc.
+                    </p>
+                </div>
+            </div>
+            <p class="text-[11px] text-slate-600 text-center">&copy; 2026 ANCUHOMES. Hệ thống CHDV tối ưu hàng đầu tại TP.HCM & Bình Dương.</p>
+        </div>
+    </footer>
+
+    <!-- JS LOGIC AND STATE MANAGEMENT -->
+    <script>
+        
+        // Global State Variables
+        let rooms = [];
+        let globalSettings = {
+            brandName: 'ANCUHOMES',
+            brandSlogan: 'Hệ thống CHDV giá tốt',
+            hotline: '0989466654', 
+            logoUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=100&h=100&fit=crop&q=80',
+            zaloUrl: 'https://zalo.me/0989466654', 
+            fbUrl: 'https://facebook.com/ancuhomes.chdv',
+            qrZaloUrl: 'https://placehold.co/400x400/0ea5e9/ffffff?text=Zalo+QR+ANCUHOMES',
+            qrDepositUrl: 'https://placehold.co/400x400/dfb743/000000?text=QR+Dat+Coc+ANCUHOMES',
+            adminPin: '*********' // Default Admin PIN code
+        };
+
+        // Active filters state
+        let currentDistrictFilter = 'Tất cả';
+        let currentPriceFilter = 'all';
+
+        // Selected room for detailed view
+        let selectedRoom = null;
+        let selectedRoomImageIndex = 0;
+
+        // Default beautiful mockup rooms to run perfectly immediately
+        const defaultRooms = [
+            {
+                id: 'room-1',
+                code: 'AH-101',
+                address: '150/12 Nguyễn Trãi, Bến Thành',
+                district: 'Quận 1',
+                price: 5200000,
+                map: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.489376694856!2d106.690835!3d10.772583',
+                status: 'Còn trống',
+                images: [
+                    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80',
+                    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80',
+                    'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80'
+                ],
+                services: {
+                    electricity: 'Điện: 3.800đ / KWh',
+                    water: 'Nước: 100.000đ / người',
+                    wifi: 'Wifi + Quản lý: 150.000đ/phòng',
+                    others: 'Giữ xe: Miễn phí'
+                },
+                utilities: ['Máy lạnh', 'Tủ lạnh', 'Giường nệm', 'Tủ quần áo', 'Khu bếp nấu', 'Ban công']
+            },
+            {
+                id: 'room-2',
+                code: 'AH-204',
+                address: '320 Điện Biên Phủ, Phường 21',
+                district: 'Bình Thạnh',
+                price: 4300000,
+                map: '',
+                status: 'Còn trống',
+                images: [
+                    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+                    'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80'
+                ],
+                services: {
+                    electricity: 'Điện: 3.500đ / KWh',
+                    water: 'Nước: 100.000đ / người',
+                    wifi: 'Wifi + Dịch vụ: Miễn phí',
+                    others: 'Phí vệ sinh rác: 50.000đ/phòng'
+                },
+                utilities: ['Máy lạnh', 'Giường nệm', 'Tủ quần áo', 'Gác lửng', 'Máy giặt chung']
+            },
+            {
+                id: 'room-3',
+                code: 'AH-302',
+                address: '456 Cách Mạng Tháng 8, Phường 11',
+                district: 'Quận 3',
+                price: 2900000,
+                map: '',
+                status: 'Còn trống',
+                images: [
+                    'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&q=80'
+                ],
+                services: {
+                    electricity: 'Điện: 4.000đ / KWh',
+                    water: 'Nước: 100.000đ / người',
+                    wifi: 'Wifi: 50.000đ/người',
+                    others: 'Rác + Vệ sinh chung: 30.000đ/tháng'
+                },
+                utilities: ['Giường nệm', 'Tủ quần áo', 'Gác lửng', 'Khu bếp nấu']
+            },
+            {
+                id: 'room-4',
+                code: 'AH-1201',
+                address: '777 Nguyễn Ảnh Thủ, Hiệp Thành',
+                district: 'Quận 12',
+                price: 2500000,
+                map: '',
+                status: 'Còn trống',
+                images: [
+                    'https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800&q=80'
+                ],
+                services: {
+                    electricity: 'Điện: 3.500đ / KWh',
+                    water: 'Nước: 100.000đ / người',
+                    wifi: 'Wifi: Miễn phí',
+                    others: 'Dịch vụ rác: 30.000đ/phòng'
+                },
+                utilities: ['Máy lạnh', 'Giường nệm', 'Tủ quần áo', 'Gác lửng']
+            },
+            {
+                id: 'room-5',
+                code: 'AH-DA02',
+                address: '12 Đại Lộ Thống Nhất, Phường Dĩ An',
+                district: 'Dĩ An',
+                price: 3300000,
+                map: '',
+                status: 'Còn trống',
+                images: [
+                    'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=800&q=80'
+                ],
+                services: {
+                    electricity: 'Điện: 3.500đ / KWh',
+                    water: 'Nước: 80.000đ / người',
+                    wifi: 'Wifi + Rác + Xe: 150.000đ / phòng',
+                    others: 'Bảo vệ camera 24/7: Miễn phí'
+                },
+                utilities: ['Máy lạnh', 'Tủ lạnh', 'Giường nệm', 'Tủ quần áo', 'Ban công']
+            }
+        ];
+
+        // Helper to construct exact external Google Maps redirection URLs
+        function getGoogleMapsLink(room) {
+            if (room.map && room.map.includes('http') && !room.map.includes('embed')) {
+                return room.map;
+            }
+            const region = room.district === 'Dĩ An' ? 'Bình Dương' : 'Hồ Chí Minh';
+            return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(room.address + ', ' + room.district + ', ' + region + ', Việt Nam')}`;
+        }
+
+        // Load Settings and Rooms data on startup
+        window.onload = function() {
+            // Check local storage persistence
+            const savedSettings = localStorage.getItem('ancuhomes_settings');
+            if (savedSettings) {
+                globalSettings = JSON.parse(savedSettings);
+                // Ensure backward compatibility if pin doesn't exist
+                if (!globalSettings.adminPin) {
+                    globalSettings.adminPin = '08121503a';
+                }
+            }
+
+            const savedRooms = localStorage.getItem('ancuhomes_rooms');
+            if (savedRooms) {
+                rooms = JSON.parse(savedRooms);
+            } else {
+                rooms = defaultRooms;
+                localStorage.setItem('ancuhomes_rooms', JSON.stringify(rooms));
+            }
+
+            // Sync brand config
+            applyBrandConfigToUI();
+            
+            // Render UI lists
+            generateImageFormInputs();
+            renderRooms();
+            
+            // Auto-load Admin Form defaults
+            populateAdminSettingsInputs();
+        };
+
+        // Utility to display notifications
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `smooth-transition flex items-center gap-3 px-5 py-4 rounded-2xl shadow-xl text-xs font-bold border transform translate-y-5 opacity-0 ${
+                type === 'success' 
+                ? 'bg-slate-900 text-brand-500 border-brand-500/20' 
+                : 'bg-red-950 text-red-400 border-red-500/20'
+            }`;
+            
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            toast.innerHTML = `<i class="fas ${icon} text-lg"></i> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+            }, 100);
+
+            // Remove after 3.5s
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Apply global configuration variables to DOM
+        function applyBrandConfigToUI() {
+            document.getElementById('brand-name-display').innerText = globalSettings.brandName;
+            document.title = `${globalSettings.brandName} - ${globalSettings.brandSlogan}`;
+            document.getElementById('brand-slogan-display').innerText = globalSettings.brandSlogan;
+            document.getElementById('logo-img').src = globalSettings.logoUrl;
+            document.getElementById('logo-preview-box').src = globalSettings.logoUrl;
+            
+            // Hotline sync
+            const hotline = globalSettings.hotline || '0989466654';
+            document.getElementById('header-hotline-display').innerText = `Hotline: ${hotline}`;
+            document.getElementById('footer-hotline-text').innerText = hotline;
+
+            // Header connections
+            document.getElementById('header-fb-link').href = globalSettings.fbUrl;
+            document.getElementById('header-zalo-link').href = globalSettings.zaloUrl;
+
+            // Chat Widget connectors
+            document.getElementById('chat-widget-fb').href = globalSettings.fbUrl;
+            document.getElementById('chat-widget-zalo').href = globalSettings.zaloUrl;
+
+            // Floating links
+            document.getElementById('float-fb-btn').href = globalSettings.fbUrl;
+            document.getElementById('float-zalo-btn').href = globalSettings.zaloUrl;
+
+            // Footer info
+            document.getElementById('footer-brand-name').innerText = globalSettings.brandName;
+            document.getElementById('footer-brand-slogan').innerText = globalSettings.brandSlogan;
+            document.getElementById('footer-fb-link').href = globalSettings.fbUrl;
+            document.getElementById('footer-zalo-link').href = globalSettings.zaloUrl;
+        }
+
+        // Fill Admin Panel Inputs with variables
+        function populateAdminSettingsInputs() {
+            document.getElementById('admin-brand-name').value = globalSettings.brandName;
+            document.getElementById('admin-brand-slogan').value = globalSettings.brandSlogan;
+            document.getElementById('admin-brand-hotline').value = globalSettings.hotline || '0989466654';
+            document.getElementById('admin-logo-url').value = globalSettings.logoUrl;
+            document.getElementById('admin-zalo-url').value = globalSettings.zaloUrl;
+            document.getElementById('admin-fb-url').value = globalSettings.fbUrl;
+            document.getElementById('admin-qr-zalo-url').value = globalSettings.qrZaloUrl;
+            document.getElementById('admin-qr-deposit-url').value = globalSettings.qrDepositUrl;
+            document.getElementById('admin-brand-pin').value = globalSettings.adminPin || '1234';
+
+            document.getElementById('admin-preview-qr-zalo').src = globalSettings.qrZaloUrl;
+            document.getElementById('admin-preview-qr-deposit').src = globalSettings.qrDepositUrl;
+        }
+
+        // Reset Brand Logo to placeholder
+        function resetDefaultLogo() {
+            const defaultUrl = 'https://placehold.co/100x100/1e293b/dfb743?text=AH';
+            document.getElementById('admin-logo-url').value = defaultUrl;
+            document.getElementById('logo-preview-box').src = defaultUrl;
+            showToast('Đã đặt lại đường dẫn logo về mặc định!', 'success');
+        }
+
+        // HANDLER FOR LOCAL COMPUTER LOGO UPLOAD (FileReader to base64)
+        function handleLocalLogoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 1500000) { // Limit to ~1.5MB for localStorage performance
+                showToast('Ảnh logo quá nặng! Hãy chọn ảnh nhỏ hơn 1.5MB để tối ưu website nhé.', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                document.getElementById('admin-logo-url').value = base64String;
+                document.getElementById('logo-preview-box').src = base64String;
+                showToast('Đã tải ảnh logo từ máy tính thành công! Nhấn "Lưu tất cả thay đổi" để áp dụng.', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // UNIVERSAL HANDLER FOR LOCAL QR IMAGE UPLOADS
+        function handleQRUpload(event, targetConfigField, previewImgElementId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 1000000) {
+                showToast('Mã QR quá dung lượng! Vui lòng chọn tệp nhỏ hơn 1MB.', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                globalSettings[targetConfigField] = base64String;
+                document.getElementById(previewImgElementId).src = base64String;
+
+                if (targetConfigField === 'qrZaloUrl') {
+                    document.getElementById('admin-qr-zalo-url').value = base64String;
+                } else if (targetConfigField === 'qrDepositUrl') {
+                    document.getElementById('admin-qr-deposit-url').value = base64String;
+                }
+
+                showToast('Đã nạp hình ảnh mã QR mới lên thành công!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Format raw currency numbers to VND string
+        function formatVND(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+
+        // Render listings on the home grid and admin panel table
+        function renderRooms() {
+            const grid = document.getElementById('rooms-grid');
+            const tableBody = document.getElementById('admin-rooms-table-body');
+            const emptyState = document.getElementById('empty-state');
+            
+            grid.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            // Filter rooms based on current filters
+            const filteredRooms = rooms.filter(room => {
+                // District check
+                const matchDistrict = (currentDistrictFilter === 'Tất cả') || (room.district === currentDistrictFilter);
+                
+                // Price check
+                let matchPrice = false;
+                if (currentPriceFilter === 'all') matchPrice = true;
+                else if (currentPriceFilter === 'under-2') matchPrice = room.price < 2000000;
+                else if (currentPriceFilter === '2-3') matchPrice = room.price >= 2000000 && room.price <= 3000000;
+                else if (currentPriceFilter === '3-4') matchPrice = room.price >= 3000000 && room.price <= 4000000;
+                else if (currentPriceFilter === '4-5') matchPrice = room.price >= 4000000 && room.price <= 5000000;
+                else if (currentPriceFilter === 'above-5') matchPrice = room.price > 5000000;
+
+                return matchDistrict && matchPrice;
+            });
+
+            // Update stats
+            document.getElementById('result-count').innerText = `Đang tìm thấy ${filteredRooms.length} phòng`;
+            document.getElementById('stat-total-rooms').innerText = rooms.length;
+            document.getElementById('stat-available-rooms').innerText = rooms.filter(r => r.status === 'Còn trống').length;
+
+            if (filteredRooms.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Populate Room Cards
+            filteredRooms.forEach(room => {
+                const coverImage = (room.images && room.images[0]) ? room.images[0] : 'https://placehold.co/600x400/0f172a/dfb743?text=ANCUHOMES';
+                const utilitiesList = room.utilities.slice(0, 3).map(u => `
+                    <span class="bg-slate-800 text-slate-300 text-[10px] font-semibold px-2 py-1 rounded-md flex items-center gap-1 border border-slate-700">
+                        <i class="fas fa-check text-[8px] text-brand-500"></i> ${u}
+                    </span>
+                `).join('');
+
+                const statusBadgeColor = room.status === 'Còn trống' 
+                    ? 'bg-brand-500 text-slate-950 border-transparent' 
+                    : 'bg-red-500/10 text-red-400 border-red-500/20';
+
+                // Find the perfect navigation link for this apartment card
+                const mapLink = getGoogleMapsLink(room);
+
+                const cardHtml = `
+                    <div class="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 shadow-xl hover:shadow-brand-500/5 smooth-transition transform hover:-translate-y-1.5 flex flex-col h-full group">
+                        <!-- Card Photo with status overlay -->
+                        <div class="relative overflow-hidden aspect-[4/3] bg-dark-950">
+                            <img src="${coverImage}" alt="Căn hộ ${room.code}" class="w-full h-full object-cover transform group-hover:scale-105 smooth-transition" onerror="this.src='https://placehold.co/600x400/0f172a/dfb743?text=ANCUHOMES'">
+                            <span class="absolute top-3 left-3 border ${statusBadgeColor} text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                                ${room.status}
+                            </span>
+                            <span class="absolute bottom-3 right-3 bg-slate-950/90 text-brand-500 text-xs font-bold px-3 py-1.5 rounded-xl backdrop-blur-sm border border-slate-800">
+                                <i class="fas fa-city mr-1 text-brand-500"></i> ${room.district}
+                            </span>
+                        </div>
+
+                        <!-- Card Details -->
+                        <div class="p-5 flex flex-col flex-1 justify-between gap-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-slate-400">Mã phòng: <strong class="text-brand-500">${room.code}</strong></span>
+                                    <span class="text-xs font-bold text-slate-500"><i class="far fa-images"></i> ${room.images.length} Ảnh</span>
+                                </div>
+                                <!-- Clickable Address with dynamic location pin redirect on Cards -->
+                                <h4 onclick="window.open('${mapLink}', '_blank'); event.stopPropagation();" class="text-base font-extrabold text-white line-clamp-1 hover:text-brand-500 hover:underline cursor-pointer smooth-transition mb-1.5 flex items-center gap-1.5" title="Bấm để xem bản đồ định vị">
+                                    <i class="fas fa-map-marked-alt text-brand-500 text-sm"></i>
+                                    ${room.address}
+                                </h4>
+                                <div class="flex flex-wrap gap-1.5 mt-2">
+                                    ${utilitiesList}
+                                    ${room.utilities.length > 3 ? `<span class="text-[9px] font-bold text-slate-500 flex items-center">+${room.utilities.length - 3} thêm</span>` : ''}
+                                </div>
+                            </div>
+
+                            <!-- Card Pricing & View detail trigger -->
+                            <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <p class="text-[10px] uppercase font-bold text-slate-500 leading-none">Giá thuê</p>
+                                    <p class="text-base font-extrabold text-brand-500 mt-1">${formatVND(room.price)}<span class="text-xs font-medium text-slate-400">/tháng</span></p>
+                                </div>
+                                <button onclick="openRoomDetail('${room.id}')" class="bg-brand-500 hover:bg-brand-600 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-bold shadow-lg smooth-transition">
+                                    Chi tiết phòng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHtml);
+            });
+
+            // Populate Admin Rooms Table
+            rooms.forEach(room => {
+                const coverImage = (room.images && room.images[0]) ? room.images[0] : 'https://placehold.co/100x100/0f172a/dfb743?text=AH';
+                const statusColor = room.status === 'Còn trống' ? 'text-brand-500 bg-brand-500/10 border-brand-500/20' : 'text-red-400 bg-red-500/10 border-red-500/20';
+
+                const rowHtml = `
+                    <tr class="hover:bg-slate-800/50 transition-colors border-b border-slate-800">
+                        <td class="p-4 font-bold text-brand-500">${room.code}</td>
+                        <td class="p-4">
+                            <p class="font-semibold text-white line-clamp-1">${room.address}</p>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-dark-950 px-1.5 py-0.5 rounded border border-slate-800">${room.district}</span>
+                        </td>
+                        <td class="p-4 font-extrabold text-brand-500">${formatVND(room.price)}</td>
+                        <td class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-lg bg-dark-950 border border-slate-800 overflow-hidden inline-block shadow-inner">
+                                <img src="${coverImage}" class="w-full h-full object-cover" alt="${room.code}">
+                            </div>
+                        </td>
+                        <td class="p-4 text-center">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${statusColor}">
+                                ${room.status}
+                            </span>
+                        </td>
+                        <td class="p-4 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <button onclick="editRoom('${room.id}')" class="w-8 h-8 rounded-lg bg-slate-800 text-cyan-400 hover:bg-slate-700 flex items-center justify-center smooth-transition" title="Chỉnh sửa"><i class="fas fa-edit"></i></button>
+                                <button onclick="deleteRoom('${room.id}')" class="w-8 h-8 rounded-lg bg-slate-800 text-red-400 hover:bg-slate-700 flex items-center justify-center smooth-transition" title="Xóa phòng"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', rowHtml);
+            });
+        }
+
+        // Apply filters & refresh display lists
+        function applyFilters() {
+            currentDistrictFilter = document.getElementById('filter-district').value;
+            renderRooms();
+
+            // Toggle filter clearing badge indicators UI
+            const indicatorsContainer = document.getElementById('filter-indicators');
+            const badgesContainer = document.getElementById('active-filters-badges');
+
+            if (currentDistrictFilter !== 'Tất cả' || currentPriceFilter !== 'all') {
+                indicatorsContainer.classList.remove('hidden');
+                badgesContainer.innerHTML = '';
+
+                if (currentDistrictFilter !== 'Tất cả') {
+                    badgesContainer.innerHTML += `
+                        <span class="bg-slate-800 text-brand-500 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-700">
+                            Khu vực: ${currentDistrictFilter}
+                            <button onclick="document.getElementById('filter-district').value='Tất cả'; applyFilters();" class="text-xs hover:text-red-400"><i class="fas fa-times"></i></button>
+                        </span>
+                    `;
+                }
+
+                if (currentPriceFilter !== 'all') {
+                    let text = '';
+                    switch(currentPriceFilter) {
+                        case 'under-2': text = 'Dưới 2Tr'; break;
+                        case '2-3': text = '2Tr - 3Tr'; break;
+                        case '3-4': text = '3Tr - 4Tr'; break;
+                        case '4-5': text = '4Tr - 5Tr'; break;
+                        case 'above-5': text = 'Trên 5Tr'; break;
+                    }
+                    badgesContainer.innerHTML += `
+                        <span class="bg-slate-800 text-brand-500 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-700">
+                            Giá: ${text}
+                            <button onclick="setPriceFilter('all', document.querySelector('.price-btn'))" class="text-xs hover:text-red-400"><i class="fas fa-times"></i></button>
+                        </span>
+                    `;
+                }
+            } else {
+                indicatorsContainer.classList.add('hidden');
+            }
+        }
+
+        // Set active state for price filtering buttons
+        function setPriceFilter(range, btn) {
+            currentPriceFilter = range;
+            
+            document.querySelectorAll('.price-btn').forEach(b => {
+                b.className = "price-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold smooth-transition border border-transparent";
+            });
+
+            btn.className = "price-btn bg-brand-500 text-slate-950 px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-sm hover:shadow smooth-transition border border-transparent active";
+            
+            applyFilters();
+        }
+
+        // Clear filter choices
+        function resetAllFilters() {
+            document.getElementById('filter-district').value = 'Tất cả';
+            const defaultPriceBtn = document.querySelector('.price-btn');
+            setPriceFilter('all', defaultPriceBtn);
+        }
+
+        // Generate 10 Local Image Input Blocks inside Room Form automatically
+        function generateImageFormInputs() {
+            const list = document.getElementById('image-inputs-list');
+            list.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                list.innerHTML += `
+                    <div class="bg-dark-950 p-2.5 rounded-2xl border border-slate-800 flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-slate-400">Hình ảnh ${i}</span>
+                            <!-- Miniature Preview thumbnail -->
+                            <div class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden flex items-center justify-center">
+                                <img id="form-img-prev-${i}" src="" class="w-full h-full object-cover hidden" alt="Preview ${i}">
+                                <i id="form-img-icon-${i}" class="far fa-image text-slate-600 text-[10px]"></i>
+                            </div>
+                        </div>
+                        <div class="flex gap-1.5">
+                            <input type="text" id="form-img-${i}" oninput="updateImageInputPreview(${i})" class="flex-1 bg-slate-900 text-slate-200 border border-slate-800 px-2 py-1.5 rounded-lg text-[10px] focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="Nhập đường dẫn URL...">
+                            <label class="bg-slate-800 hover:bg-slate-700 text-brand-500 w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer smooth-transition shrink-0 text-xs shadow-sm" title="Tải ảnh lên từ máy tính">
+                                <i class="fas fa-upload"></i>
+                                <input type="file" accept="image/*" class="hidden" onchange="handleRoomImageUpload(event, ${i})">
+                            </label>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Live image previews trigger inside Form
+        function updateImageInputPreview(index) {
+            const val = document.getElementById(`form-img-${index}`).value.trim();
+            const prevImg = document.getElementById(`form-img-prev-${index}`);
+            const prevIcon = document.getElementById(`form-img-icon-${index}`);
+
+            if (val) {
+                prevImg.src = val;
+                prevImg.classList.remove('hidden');
+                prevIcon.classList.add('hidden');
+            } else {
+                prevImg.src = '';
+                prevImg.classList.add('hidden');
+                prevIcon.classList.remove('hidden');
+            }
+        }
+
+        // Handlers for Local Computer Room Image Upload
+        function handleRoomImageUpload(event, index) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 1500000) { // Keep under 1.5MB for local storage optimization
+                showToast('Kích thước ảnh quá lớn! Vui lòng chọn ảnh nhỏ hơn 1.5MB.', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                document.getElementById(`form-img-${index}`).value = base64String;
+                updateImageInputPreview(index);
+                showToast(`Đã nạp ảnh ${index} từ máy tính thành công!`, 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Fill images with gorgeous preset templates instantly
+        function autoPopulateDemoImages() {
+            const presets = [
+                'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80',
+                'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80',
+                'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+                'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80',
+                'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80',
+                'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',
+                'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80',
+                'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80',
+                'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80',
+                'https://images.unsplash.com/photo-1501183007986-d0d080b147f9?w=800&q=80'
+            ];
+            
+            for (let i = 1; i <= 10; i++) {
+                document.getElementById(`form-img-${i}`).value = presets[i - 1];
+                updateImageInputPreview(i);
+            }
+            showToast('Đã tự động nạp 10 bức ảnh CHDV Unsplash cực kỳ chất lượng!', 'success');
+        }
+
+        // Open Room Form for Add/Edit
+        function openRoomForm(isEdit = false) {
+            document.getElementById('room-form-container').classList.remove('hidden');
+            if (!isEdit) {
+                document.getElementById('form-title').innerHTML = '<i class="fas fa-plus text-brand-500"></i> Thêm mới phòng trống';
+                document.getElementById('form-room-id').value = '';
+                document.getElementById('form-room-code').value = '';
+                document.getElementById('form-room-address').value = '';
+                document.getElementById('form-room-price').value = '';
+                document.getElementById('form-room-map').value = '';
+                document.getElementById('form-room-status').value = 'Còn trống';
+                
+                for (let i = 1; i <= 10; i++) {
+                    document.getElementById(`form-img-${i}`).value = '';
+                    updateImageInputPreview(i);
+                }
+
+                document.getElementById('service-electricity').value = 'Điện: 3.500đ / KWh';
+                document.getElementById('service-water').value = 'Nước: 100.000đ / người';
+                document.getElementById('service-wifi').value = 'Wifi + Quản lý: Miễn phí';
+                document.getElementById('service-others').value = 'Phí vệ sinh: 50.000đ/phòng';
+            }
+        }
+
+        // Close Room Form
+        function closeRoomForm() {
+            document.getElementById('room-form-container').classList.add('hidden');
+        }
+
+        // Create or Update Room on save trigger
+        function saveRoom() {
+            const code = document.getElementById('form-room-code').value.trim();
+            const address = document.getElementById('form-room-address').value.trim();
+            const district = document.getElementById('form-room-district').value;
+            const priceVal = document.getElementById('form-room-price').value;
+            const mapLink = document.getElementById('form-room-map').value.trim();
+            const status = document.getElementById('form-room-status').value;
+            const id = document.getElementById('form-room-id').value;
+
+            if (!code || !address || !priceVal) {
+                showToast('Bạn cần điền đủ Mã phòng, Địa chỉ cụ thể và Giá bán!', 'error');
+                return;
+            }
+
+            const images = [];
+            for (let i = 1; i <= 10; i++) {
+                const url = document.getElementById(`form-img-${i}`).value.trim();
+                if (url) images.push(url);
+            }
+
+            if (images.length === 0) {
+                images.push('https://placehold.co/600x400/0f172a/dfb743?text=ANCUHOMES');
+            }
+
+            const roomData = {
+                id: id || 'room-' + Date.now(),
+                code: code,
+                address: address,
+                district: district,
+                price: parseFloat(priceVal),
+                map: mapLink,
+                status: status,
+                images: images,
+                services: {
+                    electricity: document.getElementById('service-electricity').value.trim() || 'Điện: 3.500đ / KWh',
+                    water: document.getElementById('service-water').value.trim() || 'Nước: 100.000đ / người',
+                    wifi: document.getElementById('service-wifi').value.trim() || 'Wifi: Miễn phí',
+                    others: document.getElementById('service-others').value.trim() || 'Phí vệ sinh: 50.000đ/phòng'
+                },
+                utilities: Array.from(document.querySelectorAll('#utilities-checklist input:checked')).map(el => el.value)
+            };
+
+            if (id) {
+                const idx = rooms.findIndex(r => r.id === id);
+                if (idx !== -1) {
+                    rooms[idx] = roomData;
+                    showToast(`Đã lưu thay đổi căn hộ ${code} thành công!`, 'success');
+                }
+            } else {
+                rooms.push(roomData);
+                showToast(`Đã khởi tạo căn hộ ${code} thành công!`, 'success');
+            }
+
+            localStorage.setItem('ancuhomes_rooms', JSON.stringify(rooms));
+            
+            renderRooms();
+            closeRoomForm();
+        }
+
+        // Open existing room specs inside Edit mode
+        function editRoom(id) {
+            const room = rooms.find(r => r.id === id);
+            if (!room) return;
+
+            openRoomForm(true);
+            document.getElementById('form-title').innerHTML = `<i class="fas fa-edit text-brand-500"></i> Điều chỉnh căn hộ: ${room.code}`;
+            document.getElementById('form-room-id').value = room.id;
+            document.getElementById('form-room-code').value = room.code;
+            document.getElementById('form-room-address').value = room.address;
+            document.getElementById('form-room-district').value = room.district;
+            document.getElementById('form-room-price').value = room.price;
+            document.getElementById('form-room-map').value = room.map;
+            document.getElementById('form-room-status').value = room.status;
+
+            document.getElementById('service-electricity').value = room.services.electricity || '';
+            document.getElementById('service-water').value = room.services.water || '';
+            document.getElementById('service-wifi').value = room.services.wifi || '';
+            document.getElementById('service-others').value = room.services.others || '';
+
+            const checkboxes = document.querySelectorAll('#utilities-checklist input');
+            checkboxes.forEach(cb => {
+                cb.checked = room.utilities.includes(cb.value);
+            });
+
+            for (let i = 1; i <= 10; i++) {
+                document.getElementById(`form-img-${i}`).value = room.images[i - 1] || '';
+                updateImageInputPreview(i);
+            }
+
+            document.getElementById('room-form-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Delete Room listing
+        function deleteRoom(id) {
+            const room = rooms.find(r => r.id === id);
+            if (!room) return;
+
+            if (confirm(`Bạn chắc chắn muốn xóa căn hộ ${room.code} khỏi cơ sở dữ liệu?`)) {
+                rooms = rooms.filter(r => r.id !== id);
+                localStorage.setItem('ancuhomes_rooms', JSON.stringify(rooms));
+                renderRooms();
+                showToast(`Đã xóa sạch căn hộ ${room.code}!`, 'success');
+            }
+        }
+
+        // Save brand modifications & social networks
+        function saveGlobalSettings() {
+            globalSettings.brandName = document.getElementById('admin-brand-name').value.trim() || 'ANCUHOMES';
+            globalSettings.brandSlogan = document.getElementById('admin-brand-slogan').value.trim() || 'Hệ thống CHDV giá tốt';
+            globalSettings.hotline = document.getElementById('admin-brand-hotline').value.trim() || '0989466654';
+            globalSettings.logoUrl = document.getElementById('admin-logo-url').value.trim();
+            globalSettings.zaloUrl = document.getElementById('admin-zalo-url').value.trim() || 'https://zalo.me/0989466654';
+            globalSettings.fbUrl = document.getElementById('admin-fb-url').value.trim() || 'https://facebook.com';
+            globalSettings.qrZaloUrl = document.getElementById('admin-qr-zalo-url').value.trim();
+            globalSettings.qrDepositUrl = document.getElementById('admin-qr-deposit-url').value.trim();
+            
+            // Save newly entered PIN code
+            const newPin = document.getElementById('admin-brand-pin').value.trim();
+            if (newPin) {
+                globalSettings.adminPin = newPin;
+            }
+
+            localStorage.setItem('ancuhomes_settings', JSON.stringify(globalSettings));
+            
+            applyBrandConfigToUI();
+            toggleAdminPanel();
+            showToast('Đã lưu cấu hình và ảnh logo của thương hiệu thành công!', 'success');
+        }
+
+        // Trigger PIN Authenticator modal before revealing admin dashboard
+        function requestAdminAccess() {
+            // Reset input field inside verification modal
+            document.getElementById('admin-pin-input').value = '';
+            document.getElementById('pin-auth-modal').classList.remove('hidden');
+        }
+
+        // Close PIN authentication block
+        function closePinAuthModal() {
+            document.getElementById('pin-auth-modal').classList.add('hidden');
+        }
+
+        // Verify custom pin matches global state
+        function verifyAdminPin() {
+            const enteredPin = document.getElementById('admin-pin-input').value.trim();
+            const correctPin = globalSettings.adminPin || '08121503a';
+
+            if (enteredPin === correctPin) {
+                closePinAuthModal();
+                toggleAdminPanel();
+                showToast('Xác thực mã PIN chính xác! Đã mở quyền Quản trị hệ thống.', 'success');
+            } else {
+                showToast('Mã PIN bảo mật không chính xác! Vui lòng thử lại.', 'error');
+            }
+        }
+
+        // Toggle Admin Visibility
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        // Switch Sub-tabs in Admin Dashboard
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.className = "admin-tab-btn border-b-2 border-transparent text-slate-455 px-3 py-4 text-xs sm:text-sm font-bold flex items-center gap-2 smooth-transition hover:text-white";
+            });
+
+            document.querySelectorAll('.admin-tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+
+            document.getElementById(`tab-${tabName}`).className = "admin-tab-btn border-b-2 border-brand-500 text-brand-500 px-3 py-4 text-xs sm:text-sm font-bold flex items-center gap-2 smooth-transition";
+            document.getElementById(`admin-tab-content-${tabName}`).classList.remove('hidden');
+        }
+
+        // Open Details view of specific apartment
+        function openRoomDetail(id) {
+            const room = rooms.find(r => r.id === id);
+            if (!room) return;
+
+            selectedRoom = room;
+            selectedRoomImageIndex = 0;
+
+            document.getElementById('modal-room-status').innerText = room.status;
+            const statusClass = room.status === 'Còn trống' ? 'bg-brand-500 text-slate-950' : 'bg-red-500/10 text-red-400 border border-red-500/20';
+            document.getElementById('modal-room-status').className = `${statusClass} text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-1.5 inline-block`;
+            
+            document.getElementById('modal-room-code').innerText = room.code;
+            
+            // Map specific address hyperlink mapping dynamically
+            const addressLink = document.getElementById('modal-room-address');
+            addressLink.innerText = room.address;
+            addressLink.href = getGoogleMapsLink(room);
+
+            document.getElementById('modal-room-price').innerText = formatVND(room.price) + ' / Tháng';
+            
+            updateModalImageDisplay();
+
+            const servicesContainer = document.getElementById('modal-room-services');
+            servicesContainer.innerHTML = '';
+            const servicesKeys = Object.keys(room.services);
+            servicesKeys.forEach(k => {
+                servicesContainer.innerHTML += `
+                    <div class="flex items-center justify-between text-xs bg-dark-950 p-2.5 rounded-lg border border-slate-800">
+                        <span class="font-semibold text-slate-400 capitalize">${k === 'electricity' ? 'Điện` tiêu thụ' : k === 'water' ? 'Nước sinh hoạt' : k === 'wifi' ? 'Wifi & Internet' : 'Khác'}</span>
+                        <span class="font-bold text-slate-200">${room.services[k]}</span>
+                    </div>
+                `;
+            });
+
+            const utilitiesContainer = document.getElementById('modal-room-utilities');
+            utilitiesContainer.innerHTML = '';
+            room.utilities.forEach(u => {
+                utilitiesContainer.innerHTML += `
+                    <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl font-semibold">
+                        <i class="fas fa-check-circle text-brand-500"></i> ${u}
+                    </div>
+                `;
+            });
+
+            const mapContainer = document.getElementById('modal-map-container');
+            if (room.map && room.map.includes('http') && room.map.includes('embed')) {
+                mapContainer.innerHTML = `<iframe src="${room.map}" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>`;
+            } else {
+                const calculatedMapUrl = getGoogleMapsLink(room);
+                mapContainer.innerHTML = `
+                    <div class="text-center p-4">
+                        <i class="fas fa-map-marked-alt text-3xl text-slate-600 mb-2"></i>
+                        <p class="text-xs text-slate-400 mb-3">Tìm vị trí căn hộ trên Google Maps định vị</p>
+                        <a href="${calculatedMapUrl}" target="_blank" class="bg-brand-500 hover:bg-brand-600 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow">
+                            <i class="fas fa-external-link-alt"></i> Xem bản đồ ngoài
+                        </a>
+                    </div>
+                `;
+            }
+
+            document.getElementById('modal-chat-zalo-btn').href = globalSettings.zaloUrl;
+            document.getElementById('room-detail-modal').classList.remove('hidden');
+        }
+
+        // Close details modal
+        function closeRoomDetailModal() {
+            document.getElementById('room-detail-modal').classList.add('hidden');
+            selectedRoom = null;
+        }
+
+        // Slideshow controls inside Modal Detail
+        function updateModalImageDisplay() {
+            if (!selectedRoom || !selectedRoom.images.length) return;
+            
+            const mainImg = document.getElementById('modal-main-img');
+            mainImg.src = selectedRoom.images[selectedRoomImageIndex];
+
+            const th = document.getElementById('modal-thumbnails');
+            th.innerHTML = '';
+            selectedRoom.images.forEach((img, idx) => {
+                const borderClass = idx === selectedRoomImageIndex ? 'border-brand-500 ring-2 ring-brand-500/20' : 'border-slate-800';
+                th.innerHTML += `
+                    <button onclick="setModalImageIndex(${idx})" class="w-20 h-16 rounded-xl overflow-hidden border-2 flex-shrink-0 smooth-transition ${borderClass}">
+                        <img src="${img}" class="w-full h-full object-cover" alt="Thumb ${idx}">
+                    </button>
+                `;
+            });
+        }
+
+        function setModalImageIndex(idx) {
+            selectedRoomImageIndex = idx;
+            updateModalImageDisplay();
+        }
+
+        // Slide navigators
+        function prevModalImage() {
+            if (!selectedRoom) return;
+            selectedRoomImageIndex = (selectedRoomImageIndex - 1 + selectedRoom.images.length) % selectedRoom.images.length;
+            updateModalImageDisplay();
+        }
+
+        function nextModalImage() {
+            if (!selectedRoom) return;
+            selectedRoomImageIndex = (selectedRoomImageIndex + 1) % selectedRoom.images.length;
+            updateModalImageDisplay();
+        }
+
+        // Booking deposit modal triggers
+        function openDepositQRModal() {
+            if (!selectedRoom) return;
+            document.getElementById('deposit-room-desc').innerHTML = `Căn hộ: <span class="bg-brand-500 text-slate-950 px-1.5 py-0.5 rounded font-extrabold">${selectedRoom.code}</span> - Giá: ${formatVND(selectedRoom.price)}/tháng`;
+            document.getElementById('deposit-qr-img').src = globalSettings.qrDepositUrl;
+            
+            const hotline = globalSettings.hotline || '0989466654';
+            document.getElementById('deposit-transfer-syntax').innerText = `DATCOC ${selectedRoom.code} ${hotline}`;
+
+            document.getElementById('deposit-qr-modal').classList.remove('hidden');
+        }
+
+        function closeDepositQRModal() {
+            document.getElementById('deposit-qr-modal').classList.add('hidden');
+        }
+
+        // Open floating bubble connections Zalo / FB
+        function toggleSocialBubbles() {
+            const panel = document.getElementById('float-socials');
+            panel.classList.toggle('translate-y-12');
+            panel.classList.toggle('opacity-0');
+            panel.classList.toggle('pointer-events-none');
+        }
+
+        // Toggle Chatbot Window view
+        function toggleAIChat() {
+            const chat = document.getElementById('ai-chat-panel');
+            chat.classList.toggle('hidden');
+        }
+
+        // Handle sending messages to Trợ lý ảo AI
+        async function sendChatMessage() {
+            const input = document.getElementById('ai-user-input');
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+
+            input.value = '';
+            appendChatBubble(userMsg, 'user');
+            scrollToBottomChat();
+
+            const typing = document.getElementById('ai-typing-indicator');
+            typing.classList.remove('hidden');
+
+            try {
+                const responseText = await queryGeminiAIChat(userMsg);
+                typing.classList.add('hidden');
+                appendChatBubble(responseText, 'bot');
+            } catch (err) {
+                typing.classList.add('hidden');
+                const fallbackReply = generateSmartLocalFallback(userMsg);
+                appendChatBubble(fallbackReply, 'bot');
+            }
+
+            scrollToBottomChat();
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('ai-user-input').value = promptText;
+            sendChatMessage();
+        }
+
+        // Dynamic local database regex assistant
+        function generateSmartLocalFallback(queryText) {
+            const norm = queryText.toLowerCase();
+            let matchedRooms = [];
+
+            const availableList = rooms.filter(r => r.status === 'Còn trống');
+
+            if (norm.includes('quận 12') || norm.includes('q12')) {
+                matchedRooms = availableList.filter(r => r.district === 'Quận 12');
+            } else if (norm.includes('quận 1') || norm.includes('q1')) {
+                matchedRooms = availableList.filter(r => r.district === 'Quận 1');
+            } else if (norm.includes('dĩ an') || norm.includes('di an')) {
+                matchedRooms = availableList.filter(r => r.district === 'Dĩ An');
+            } else if (norm.includes('bình thạnh')) {
+                matchedRooms = availableList.filter(r => r.district === 'Bình Thạnh');
+            } else if (norm.includes('quận 3') || norm.includes('q3')) {
+                matchedRooms = availableList.filter(r => r.district === 'Quận 3');
+            } else if (norm.includes('phú nhuận')) {
+                matchedRooms = availableList.filter(r => r.district === 'Phú Nhuận');
+            } else if (norm.includes('gò vấp')) {
+                matchedRooms = availableList.filter(r => r.district === 'Gò Vấp');
+            } else {
+                matchedRooms = availableList;
+            }
+
+            if (norm.includes('dưới 2') || norm.includes('dưới 2tr') || norm.includes('giá rẻ')) {
+                matchedRooms = matchedRooms.filter(r => r.price < 2000000);
+            } else if (norm.includes('dưới 4') || norm.includes('dưới 4tr')) {
+                matchedRooms = matchedRooms.filter(r => r.price < 4000000);
+            } else if (norm.includes('dưới 5') || norm.includes('dưới 5tr')) {
+                matchedRooms = matchedRooms.filter(r => r.price < 5000000);
+            }
+
+            if (norm.includes('cọc') || norm.includes('chuyển khoản') || norm.includes('giữ chỗ')) {
+                return `Dạ, để đặt cọc giữ căn hộ tại **${globalSettings.brandName}**, bạn chỉ cần chọn phòng vừa ý, bấm nút **Quét QR đặt cọc** trong hộp thoại chi tiết. Nội dung giao dịch sẽ tự động điền: \`DATCOC [Mã Phòng] [SĐT của bạn]\` và gửi trực tiếp qua tài khoản liên kết để được ưu tiên đặt giữ phòng nhé! Zalo liên hệ hỗ trợ trực tiếp: ${globalSettings.zaloUrl}`;
+            }
+
+            if (matchedRooms.length > 0) {
+                let response = `Dạ hiện tại hệ thống **${globalSettings.brandName}** đang có **${matchedRooms.length} phòng trống** thỏa mãn yêu cầu của anh/chị:<br><br>`;
+                matchedRooms.forEach(r => {
+                    response += `🏠 **Phòng ${r.code}** tại ${r.address} (${r.district}).<br>💰 Giá thuê chỉ: **${formatVND(r.price)}/tháng**.<br>⭐ Tiện nghi nổi bật: ${r.utilities.slice(0, 3).join(', ')}...<br><br>`;
+                });
+                response += `Anh/chị có thể click trực tiếp "Xem chi tiết" của căn phòng trên trang web để check đầy đủ ảnh thực tế, hoặc liên hệ ngay Zalo: ${globalSettings.zaloUrl} để được hỗ trợ dắt đi xem phòng thực tế miễn phí ạ!`;
+                return response;
+            }
+
+            return `Dạ em chưa tìm thấy kết quả nào trùng khớp hoàn toàn trên hệ thống. Anh/chị có thể kết nối ngay hotline hoặc Zalo để nhân viên tư vấn check thêm kho phòng nội bộ sắp bàn giao chưa kịp đăng website nhé! Link liên hệ Zalo: ${globalSettings.zaloUrl}`;
+        }
+
+        // Fetch API request to Gemini Generative AI
+        async function queryGeminiAIChat(userMessage) {
+            const availableCatalog = rooms.filter(r => r.status === 'Còn trống').map(r => ({
+                maPhong: r.code,
+                diaChi: r.address,
+                quan: r.district,
+                giaThue: r.price,
+                tienTich: r.utilities,
+                dichVu: r.services
+            }));
+
+            const systemPrompt = `
+                Bạn là trợ lý ảo AI thông minh, nhiệt tình của hệ thống căn hộ dịch vụ ${globalSettings.brandName} (${globalSettings.brandSlogan}).
+                Đường dây hotline của chúng tôi là: ${globalSettings.hotline}.
+
+                DANH SÁCH CĂN HỘ TRỐNG HIỆN CÓ:
+                ${JSON.stringify(availableCatalog, null, 2)}
+
+                QUY TẮC PHẢN HỒI:
+                1. Hãy luôn nhiệt tình, hiếu khách, xưng hô lễ phép.
+                2. Tư vấn trực tiếp và chuẩn xác dựa vào danh sách mã phòng trống ở trên. Không tự ý bịa mã phòng.
+                3. Trình bày ngắn gọn, khoa học bằng tiếng Việt. Sử dụng các emoji sinh động 🏠, 💰, ✨...
+                4. Nhắc nhở khách về quy trình cọc giữ chỗ: Để đặt cọc phòng trực tuyến nhanh gọn, vui lòng xem chi tiết phòng và click vào nút "Quét QR đặt cọc" hoặc kết nối chat trực tiếp Zalo hỗ trợ: ${globalSettings.zaloUrl}
+                5. Hãy hướng dẫn nhiệt tình nếu khách hỏi về quận hay tầm tiền cụ thể.
+            `;
+
+            const apiKey = ""; // API key is injected at runtime
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [
+                    {
+                        role: "user",
+                        parts: [
+                            { text: `Yêu cầu khách hàng: ${userMessage}` }
+                        ]
+                    }
+                ],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error("Gemini API call failed");
+            }
+
+            const result = await response.json();
+            const txt = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (txt) {
+                return txt.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            } else {
+                throw new Error("Invalid schema");
+            }
+        }
+
+        // Append dialogue boxes in chatbot
+        function appendChatBubble(text, sender) {
+            const history = document.getElementById('ai-chat-history');
+            const bubble = document.createElement('div');
+            bubble.className = `flex items-start gap-2.5 ${sender === 'user' ? 'justify-end' : ''}`;
+
+            const botAvatar = `<div class="w-8 h-8 rounded-full bg-slate-800 border border-brand-500/20 text-brand-500 flex items-center justify-center text-xs flex-shrink-0"><i class="fas fa-robot"></i></div>`;
+            const userAvatar = `<div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fas fa-user"></i></div>`;
+
+            bubble.innerHTML = `
+                ${sender === 'bot' ? botAvatar : ''}
+                <div class="px-4 py-3 rounded-2xl shadow-sm text-xs max-w-[85%] leading-relaxed border ${
+                    sender === 'user' 
+                    ? 'bg-brand-500 text-slate-950 rounded-tr-none border-transparent font-semibold' 
+                    : 'bg-slate-900 text-slate-300 rounded-tl-none border-slate-800'
+                }">
+                    ${text}
+                </div>
+                ${sender === 'user' ? userAvatar : ''}
+            `;
+
+            history.appendChild(bubble);
+        }
+
+        // Force scrolling downward inside chat widget
+        function scrollToBottomChat() {
+            const h = document.getElementById('ai-chat-history');
+            h.scrollTop = h.scrollHeight;
+        }
+    </script>
+</body>
+</html>
